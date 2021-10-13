@@ -2,6 +2,7 @@
 #![feature(lang_items)]
 #![feature(naked_functions)]
 #![no_std]
+#![no_main]
 
 mod boot;
 
@@ -86,19 +87,8 @@ mod terminal {
     }
 }
 
-#[export_name = "_start"]
 #[no_mangle]
-extern "C" fn _start() -> ! {
-    unsafe {
-        terminal::initialize();
-        terminal::write(b"HELLO KERNEL");
-    }
-
-    loop {}
-}
-
-#[start]
-fn main(_: isize, _: *const *const u8) -> isize {
+pub extern "C" fn _start() -> ! {
     unsafe {
         terminal::initialize();
         terminal::write(b"HELLO KERNEL");
