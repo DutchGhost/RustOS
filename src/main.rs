@@ -62,7 +62,9 @@ mod terminal {
     unsafe fn putCharAt(c: u8, new_color: u8, x: usize, y: usize) {
         let index = y * VGA_WIDTH + x;
 
-        unsafe { core::ptr::write_volatile(VGA_PTR, vga_entry(c, new_color)) }
+        unsafe {
+            core::ptr::write_volatile(VGA_PTR.offset(index as isize), vga_entry(c, new_color))
+        }
     }
 
     unsafe fn putChar(c: u8) {
