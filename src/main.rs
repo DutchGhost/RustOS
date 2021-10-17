@@ -1,6 +1,4 @@
-#![feature(start)]
 #![feature(lang_items)]
-#![feature(naked_functions)]
 #![no_std]
 #![no_main]
 

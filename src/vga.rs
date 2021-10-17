@@ -32,6 +32,12 @@ pub struct Color {
     _color: u8,
 }
 
+const _: () = {
+    use core::mem;
+    assert!(mem::size_of::<Color>() == mem::size_of::<u8>());
+    assert!(mem::align_of::<Color>() == mem::align_of::<u8>());
+};
+
 impl Color {
     #[inline(always)]
     pub(self) const fn new(color: u8) -> Self {
@@ -41,12 +47,19 @@ impl Color {
 
 use core::ptr;
 
-#[repr(packed)]
+//#[repr(packed)]
 #[allow(unused)]
+#[repr(C, align(2))]
 struct Char {
     character: u8,
     color: Color,
 }
+
+const _: () = {
+    use core::mem;
+    assert!(mem::size_of::<Char>() == mem::size_of::<u16>());
+    assert!(mem::align_of::<Char>() == mem::align_of::<u16>());
+};
 
 impl Char {
     #[inline(always)]
